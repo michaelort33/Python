@@ -10,35 +10,36 @@ import mysql.connector
 import pandas as pd
 import numpy as np
 
-engine = create_engine("mysql://root:Mooose33@127.0.0.1/gre_genome")
+engine = create_engine("mysql://root:@127.0.0.1/gre_genome")
 my_con=engine.connect()
 
 node = pd.read_sql('SELECT * FROM node', con=my_con)
 edge = pd.read_sql('SELECT * FROM edge', con=my_con)
 
-node["QuestionNumber"]=node["QuestionNumber"].convert_objects(convert_numeric=True)
+node['GRE Question']=str(node['GRE Question'])
 
-def transfer_magoosh(qid,node,edge):
-    magoosh_rows=node.loc[node['GRE Question']==qid]
-    magoosh_rows=magoosh_rows.copy()
+for row in range(len(node)-1):
+    gre=node.loc[row,'GRE Question']
+    gre=str(gre)
+    if gre!='':
+        node["QuestionNumber"]=node["QuestionNumber"].convert_objects(convert_numeric=True)
+        node["deID"]=node["deID"].convert_objects(convert_numeric=True)
+        magoosh_rows=node.iloc[[row]]
+        magoosh_rows.loc['Node']='Magoosh'
+        q_num=node['QuestionNumber'].max()+1
+        magoosh_rows.loc['QuestionNumber']=q_num
+        
+        magoosh_rows.loc['GRE Question']=''
+        
+        magoosh_rows.loc['Path']='../QuestionPics/'+str(q_num)+'.png'
 
-    for x in range(len(magoosh_rows)):
-        magoosh_rows['QuestionNumber'][x]=node['QuestionNumber'].max()+1+x
-        magoosh_rows['Node'][x]='Magoosh'
         
-        q_num=node['QuestionNumber'].max()+1+x
-        q_num=str(q_num)
-        magoosh_rows['Path'][x]='../QuestionPics/'+q_num+'.png'
+        deID=node['deID'].max()+1
+        magoosh_rows.loc['deID']=deID
         
-        magoosh_rows['GRE Question'][x]=''
+        node=node.append(magoosh_rows)
+    
         
-        magoosh_rows['QuestionNumber'][x]=q_num
-        
-        deID=node['deID'].max()+1+x
-        
-        magoosh_rows['deID'][x]=deID
-        
-        return magoosh_rows
     
     #multiple
     current_deID=node['deID'][node['GRE Question']==qid]
