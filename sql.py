@@ -484,7 +484,7 @@ geID=edge['geID'].max()+1
 
 edge.loc[len(edge)+1]=(geID,231,node['deID'].max())
 
-node.to_sql(con=engine, if_exists='replace', index=False, name='node')
-node.to_sql(con=engine, if_exists='replace', index=False, name='edge')
+#node.to_sql(con=engine, if_exists='replace', index=False, name='node')
+#node.to_sql(con=engine, if_exists='replace', index=False, name='edge')
 
 
