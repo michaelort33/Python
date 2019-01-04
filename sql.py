@@ -484,7 +484,15 @@ geID=edge['geID'].max()+1
 
 edge.loc[len(edge)+1]=(geID,231,node['deID'].max())
 
+############
+
+node.loc[node.loc[:,'Node']=='Magoosh','Path']='../QuestionPics/Q'+round(node.loc[node.loc[:,'Node']=='Magoosh','QuestionNumber'],0).astype(int).astype(str)+'.png'
+
+##########
+
+
+
 #node.to_sql(con=engine, if_exists='replace', index=False, name='node')
-#node.to_sql(con=engine, if_exists='replace', index=False, name='edge')
+#edge.to_sql(con=engine, if_exists='replace', index=False, name='edge')
 
 
