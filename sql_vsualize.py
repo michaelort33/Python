@@ -8,11 +8,8 @@ from __future__ import division
 from sqlalchemy import create_engine
 import pandas as pd
 import networkx as nx
-import numpy as np
-import matplotlib as mpl
-import matplotlib.pyplot as plt
 from graphviz import Digraph
-import xdot
+import edit_graph
 
 
 
@@ -72,17 +69,8 @@ paths=[item for item in paths if len(item) > 0]
 paths = [item for sublist in paths for item in sublist]
 
 #Convert all paths from root to leaf from deID to names
-            
-def convert_node_to_name(list_of_paths,node):
-    main_list=[]
-    for each_list in list_of_paths:
-        new_list=[]
-        for each_node in each_list:
-           new_list.append(node[node.loc[:,'deID']==each_node]['Node'].to_string(index=False))
-        main_list.append(new_list)
-    return main_list
 
-gre_genome=convert_node_to_name(paths,node)
+gre_genome=convert_nodes_to_name(paths,node)
 
 #First find the max lengths of sublists so i can no how many categories i need:
 
