@@ -31,3 +31,4 @@ def add_new_rows(list_of_rows,df):
     df=pd.DataFrame(df)
     df.columns=names
     return df
+

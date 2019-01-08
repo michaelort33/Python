@@ -10,6 +10,8 @@ import pandas as pd
 import networkx as nx
 from graphviz import Digraph
 import edit_graph
+from collections import Counter
+
 
 
 
@@ -28,10 +30,12 @@ graph_edges=edge[['Start Vertex','End Vertex']]
 tuple_edges=[tuple(x) for x in graph_edges.values]
 
 graph_nodes=node[['deID']]
-tuple_nodes=[tuple(x) for x in graph_nodes.values]
+tuple_nodes=list(graph_nodes.values)
+#Flatten the list of lists above
+tuple_nodes=[item for sublist in tuple_nodes for item in sublist]
 
-G.add_edges_from(tuple_edges)
 G.add_nodes_from(tuple_nodes)
+G.add_edges_from(tuple_edges)
     
 ##Draw
 
@@ -65,7 +69,7 @@ for leaf in leaf_nodes:
     for root in root_nodes:
         paths.append(list(nx.all_simple_paths(G,root,leaf)))
         
-paths=[item for item in paths if len(item) > 0]
+paths = [item for item in paths if len(item) > 0]
 paths = [item for sublist in paths for item in sublist]
 
 #Convert all paths from root to leaf from deID to names
