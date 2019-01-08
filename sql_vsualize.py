@@ -9,9 +9,8 @@ from sqlalchemy import create_engine
 import pandas as pd
 import networkx as nx
 from graphviz import Digraph
-import edit_graph
-from collections import Counter
-
+import edit_graph as eg
+import json
 
 
 
@@ -22,13 +21,14 @@ my_con=engine.connect()
 node = pd.read_sql('SELECT * FROM node', con=my_con)
 edge = pd.read_sql('SELECT * FROM edge', con=my_con)
 
+
 ###
 
 G = nx.DiGraph()
 
 graph_edges=edge[['Start Vertex','End Vertex']]
 tuple_edges=[tuple(x) for x in graph_edges.values]
-
+               
 graph_nodes=node[['deID']]
 tuple_nodes=list(graph_nodes.values)
 #Flatten the list of lists above
@@ -36,10 +36,23 @@ tuple_nodes=[item for sublist in tuple_nodes for item in sublist]
 
 G.add_nodes_from(tuple_nodes)
 G.add_edges_from(tuple_edges)
-    
-##Draw
 
-g=Digraph(filename='gre_genome.gv',format='pdf')
+# Generate json for d3.js
+def mapping(x):
+    return str(x)
+
+string_G=nx.relabel_nodes(G,mapping)
+
+#nx to generate dictionary
+d3_graph=nx.node_link_data(string_G)
+
+#serialize dictionary with json and save it to file
+with open('d3_graph_json.txt', 'w') as f:
+    json.dump(d3_graph,f, ensure_ascii=False)
+    
+##generate svg with g.
+
+g=Digraph(filename='gre_genome.gv',format='svg')
 
 list_nodes=[list(x) for x in graph_nodes.values]
 
@@ -52,9 +65,11 @@ list_edges=[list(x) for x in graph_edges.values]
 for x in list_edges:
     g.edge(str(x[0]),str(x[1]))
     
-g.render('gre_genome',view=True)
+g.render('gre_genome')
 
 ###
+
+
 
 #I will get all root and leaf nodes so i can get all paths from root to leaf
 
@@ -74,7 +89,7 @@ paths = [item for sublist in paths for item in sublist]
 
 #Convert all paths from root to leaf from deID to names
 
-gre_genome=convert_nodes_to_name(paths,node)
+gre_genome=eg.convert_nodes_to_name(paths,node)
 
 #First find the max lengths of sublists so i can no how many categories i need:
 
