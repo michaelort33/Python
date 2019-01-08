@@ -7,6 +7,7 @@ This is a temporary script file.
 from sqlalchemy import create_engine
 import pandas as pd
 import numpy as np
+import edit_graph
 
 engine = create_engine("mysql://root:@127.0.0.1/gre_genome")
 my_con=engine.connect()

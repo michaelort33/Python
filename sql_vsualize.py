@@ -48,7 +48,7 @@ list_edges=[list(x) for x in graph_edges.values]
 for x in list_edges:
     g.edge(str(x[0]),str(x[1]))
     
-#g.render('gre_genome',view=True)
+g.render('gre_genome',view=True)
 
 ###
 
