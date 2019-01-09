@@ -13,7 +13,7 @@ import edit_graph as eg
 import json
 
 
-
+#Read from data base
 
 engine = create_engine("mysql://root:@127.0.0.1/gre_genome")
 my_con=engine.connect()
@@ -23,6 +23,9 @@ edge = pd.read_sql('SELECT * FROM edge', con=my_con)
 
 
 ###
+#Create graph with networkx. This is one of tow graphs. The first with network
+#x and that is called G (caps) The second is just for drawing and that is called 
+#g (lowercase)
 
 G = nx.DiGraph()
 
@@ -50,33 +53,40 @@ d3_graph=nx.node_link_data(string_G)
 with open('d3_graph_json.txt', 'w') as f:
     json.dump(d3_graph,f, ensure_ascii=False)
     
-##generate svg with g.
+##generate svg or pdf with g.
 
-g=Digraph(filename='gre_genome.gv',format='svg')
+g=Digraph(filename='gre_genome.gv',format='pdf')
 
-list_nodes=[list(x) for x in graph_nodes.values]
+#Define all nodes that are questions
 
-for x in list_nodes:
-    x=str(x)
-    g.node(x)
-    
+QuestionNodes = list(node['deID'][node['QuestionNumber'].isin([x for x in node['QuestionNumber'] if x is not None])])
+
+#Change all nodes to names but for the questions (The question names cause an error in g.render)
+graph_edges['Start Vertex']=eg.convert_nodes_to_name([list(graph_edges['Start Vertex'])],node)[0]
+graph_edges['End Vertex'][~graph_edges['End Vertex'].isin(QuestionNodes)]=eg.convert_nodes_to_name([list(graph_edges['End Vertex'][~graph_edges['End Vertex'].isin(QuestionNodes)])],node)[0]
+
+
+#Add edges to the graph from graphviz
 list_edges=[list(x) for x in graph_edges.values]
 
 for x in list_edges:
     g.edge(str(x[0]),str(x[1]))
-    
-g.render('gre_genome')
+
+
+#render the graphviz graph
+g.render('gre_genome',cleanup=True)
 
 ###
 
-
-
 #I will get all root and leaf nodes so i can get all paths from root to leaf
 
-leaf_nodes = [node for node in G if G.degree(node)==1]
+leaf_nodes = [node for node in G if len(list(G.neighbors(node)))==0]
 
 root_nodes = list(set(edge['Start Vertex']
                 [~edge.loc[:,'Start Vertex'].isin(edge.loc[:,'End Vertex'])]))
+
+#Remove isolates from the gre_genome sheet
+#root_nodes = [node for node in root_nodes if node not in nx.isolates(G)]
 
 #I get all paths from root to leaf
 paths=[]
@@ -92,8 +102,6 @@ paths = [item for sublist in paths for item in sublist]
 gre_genome=eg.df_from_paths(paths,node)
 
 #Sort it alphabetically
-
-
 
 
 #node.to_sql(con=engine, if_exists='replace', index=False, name='node')
