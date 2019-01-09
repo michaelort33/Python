@@ -89,25 +89,11 @@ paths = [item for sublist in paths for item in sublist]
 
 #Convert all paths from root to leaf from deID to names
 
-gre_genome=eg.convert_nodes_to_name(paths,node)
-
-#First find the max lengths of sublists so i can no how many categories i need:
-
-lengths=[]
-for var in gre_genome:
-    lengths.append(len(var))
-    
-num_headers=max(lengths)
-    
-#Conver list of lists where inner list is path of names to a dataframe like
-#Like the original excel sheet. 
-
-headers=[]
-for header in range(num_headers):
-    headers.append(header)
-gre_genome=pd.DataFrame(gre_genome,columns=headers)
+gre_genome=eg.df_from_paths(paths,node)
 
 #Sort it alphabetically
+
+
 
 
 #node.to_sql(con=engine, if_exists='replace', index=False, name='node')
