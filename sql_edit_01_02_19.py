@@ -18,5 +18,7 @@ edge = pd.read_sql('SELECT * FROM edge', con=my_con)
 
 analyze_isolates = node[node['deID'].isin(list(nx.isolates(G)))]
 
+new_node=list(node.iloc[1])
+
 #node.to_sql(con=engine, if_exists='replace', index=False, name='node')
 #edge.to_sql(con=engine, if_exists='replace', index=False, name='edge')

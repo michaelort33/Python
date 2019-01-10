@@ -74,7 +74,7 @@ for x in list_edges:
 
 
 #render the graphviz graph
-g.render('gre_genome',cleanup=True)
+g.render('gre_genome')
 
 ###
 
