@@ -14,15 +14,6 @@ import json
 from collections import Counter
 
 
-#Read from data base
-
-engine = create_engine("mysql://root:@127.0.0.1/gre_genome")
-my_con=engine.connect()
-
-node = pd.read_sql('SELECT * FROM node', con=my_con)
-edge = pd.read_sql('SELECT * FROM edge', con=my_con)
-
-
 ###
 #Create graph with networkx. This is one of tow graphs. The first with network
 #x and that is called G (caps) The second is just for drawing and that is called 
@@ -75,9 +66,19 @@ for x in list_edges:
     g.edge(str(x[0]),str(x[1]))
     
 list_nodes=[list(x) for x in graph_nodes.values]
-
+#set the link by first testing if the node is a question or not. if question link to question if 
+#node link to quiz on that category
 for x in list_nodes:
-    URL=str('http://localhost/Website/PHP/questions_cat.php?nodes=('+'&quot;'+str(x[0])+'&quot;'+')')
+    if x[0] in QuestionNodes:
+        #remote
+        #URL=str('https://www.gregenome.com/PHP/questions_cat.php?question=('+'&quot;'+str(x[0])+'&quot;'+')')
+        #local
+        URL=str('https://localhost/Website/PHP/questions_cat.php?question=('+'&quot;'+str(x[0])+'&quot;'+')')
+    else:
+        #Remote
+        #URL=str('https://www.gregenome.com/PHP/questions_cat.php?nodes=('+'&quot;'+str(x[0])+'&quot;'+')')
+        #local
+        URL=str('https://localhost/Website/PHP/questions_cat.php?nodes=('+'&quot;'+str(x[0])+'&quot;'+')')
     g.node(name=str(x[0]),URL=URL)
 
 #render the graphviz graph
@@ -109,7 +110,3 @@ paths = [item for sublist in paths for item in sublist]
 gre_genome=eg.df_from_paths(paths,node)
 
 #Sort it alphabetically
-
-
-#node.to_sql(con=engine, if_exists='replace', index=False, name='node')
-#edge.to_sql(con=engine, if_exists='replace', index=False, name='edge')
