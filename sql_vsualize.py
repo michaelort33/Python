@@ -11,6 +11,7 @@ import networkx as nx
 from graphviz import Digraph
 import edit_graph as eg
 import json
+from collections import Counter
 
 
 #Read from data base
@@ -55,7 +56,7 @@ with open('d3_graph_json.txt', 'w') as f:
     
 ##generate svg or pdf with g.
 
-g=Digraph(filename='gre_genome.gv',format='pdf')
+g=Digraph(filename='gre_genome.gv',format='svg')
 
 #Define all nodes that are questions
 
@@ -65,13 +66,19 @@ QuestionNodes = list(node['deID'][node['QuestionNumber'].isin([x for x in node['
 graph_edges['Start Vertex']=eg.convert_nodes_to_name([list(graph_edges['Start Vertex'])],node)[0]
 graph_edges['End Vertex'][~graph_edges['End Vertex'].isin(QuestionNodes)]=eg.convert_nodes_to_name([list(graph_edges['End Vertex'][~graph_edges['End Vertex'].isin(QuestionNodes)])],node)[0]
 
+graph_nodes['deID'][~graph_nodes['deID'].isin(QuestionNodes)]=eg.convert_nodes_to_name([list(graph_nodes['deID'][~graph_nodes['deID'].isin(QuestionNodes)])],node)[0]
 
 #Add edges to the graph from graphviz
 list_edges=[list(x) for x in graph_edges.values]
 
 for x in list_edges:
     g.edge(str(x[0]),str(x[1]))
+    
+list_nodes=[list(x) for x in graph_nodes.values]
 
+for x in list_nodes:
+    URL=str('http://localhost/Website/PHP/questions_cat.php?nodes=('+'&quot;'+str(x[0])+'&quot;'+')')
+    g.node(name=str(x[0]),URL=URL)
 
 #render the graphviz graph
 g.render('gre_genome')
