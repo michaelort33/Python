@@ -47,7 +47,7 @@ with open('d3_graph_json.txt', 'w') as f:
     
 ##generate svg or pdf with g.
 
-g=Digraph(filename='gre_genome.gv',format='svg')
+g=Digraph(filename='gre_genome.gv',format='svg',graph_attr={"rankdir":"LR"})
 
 #Define all nodes that are questions
 
@@ -73,13 +73,13 @@ for x in list_nodes:
         #remote
         #URL=str('https://www.gregenome.com/PHP/questions_cat.php?question=('+'&quot;'+str(x[0])+'&quot;'+')')
         #local
-        URL=str('https://localhost/Website/PHP/questions_cat.php?question=('+'&quot;'+str(x[0])+'&quot;'+')')
+        URL=str('http://localhost/Website/PHP/questions_cat.php?question=('+'&quot;'+str(x[0])+'&quot;'+')')
     else:
         #Remote
         #URL=str('https://www.gregenome.com/PHP/questions_cat.php?nodes=('+'&quot;'+str(x[0])+'&quot;'+')')
         #local
-        URL=str('https://localhost/Website/PHP/questions_cat.php?nodes=('+'&quot;'+str(x[0])+'&quot;'+')')
-    g.node(name=str(x[0]),URL=URL)
+        URL=str('http://localhost/Website/PHP/questions_cat.php?nodes=('+'&quot;'+str(x[0])+'&quot;'+')')
+    g.node(name=str(x[0]),URL=URL,_attributes={"fontcolor":"red","target":"_blank"})
 
 #render the graphviz graph
 g.render('gre_genome')
@@ -109,4 +109,9 @@ paths = [item for sublist in paths for item in sublist]
 
 gre_genome=eg.df_from_paths(paths,node)
 
-#Sort it alphabetically
+#Start analysis
+analyze_isolates = node[node['deID'].isin(list(nx.isolates(G)))]
+
+new_node=list(node.iloc[1])
+new_edge=['',0,0]
+
