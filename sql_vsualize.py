@@ -54,6 +54,7 @@ g=Digraph(filename='gre_genome.gv',format='svg',graph_attr={"rankdir":"LR"})
 QuestionNodes = list(node['deID'][node['QuestionNumber'].isin([x for x in node['QuestionNumber'] if x is not None])])
 
 #Change all nodes to names but for the questions (The question names cause an error in g.render)
+
 graph_edges['Start Vertex']=eg.convert_nodes_to_name([list(graph_edges['Start Vertex'])],node)[0]
 graph_edges['End Vertex'][~graph_edges['End Vertex'].isin(QuestionNodes)]=eg.convert_nodes_to_name([list(graph_edges['End Vertex'][~graph_edges['End Vertex'].isin(QuestionNodes)])],node)[0]
 
@@ -70,19 +71,13 @@ list_nodes=[list(x) for x in graph_nodes.values]
 #node link to quiz on that category
 for x in list_nodes:
     if x[0] in QuestionNodes:
-        #remote
-        #URL=str('https://www.gregenome.com/PHP/questions_cat.php?question=('+'&quot;'+str(x[0])+'&quot;'+')')
-        #local
-        URL=str('http://localhost/Website/PHP/questions_cat.php?question=('+'&quot;'+str(x[0])+'&quot;'+')')
+        URL=str('../PHP/questions_cat.php?question=('+'&quot;'+str(x[0])+'&quot;'+')')
     else:
-        #Remote
-        #URL=str('https://www.gregenome.com/PHP/questions_cat.php?nodes=('+'&quot;'+str(x[0])+'&quot;'+')')
-        #local
-        URL=str('http://localhost/Website/PHP/questions_cat.php?nodes=('+'&quot;'+str(x[0])+'&quot;'+')')
-    g.node(name=str(x[0]),URL=URL,_attributes={"fontcolor":"red","target":"_blank"})
+        URL=str('../PHP/questions_cat.php?nodes=('+'&quot;'+str(x[0])+'&quot;'+')')
+    g.node(name=str(x[0]),URL=URL,_attributes={"fontcolor":"red","target":"_blank","fillcolor":"lightgrey","style":"radial"})
 
 #render the graphviz graph
-g.render('gre_genome')
+g.render('../Website/QuestionPics/gre_genome')
 
 ###
 

@@ -14,7 +14,7 @@ def convert_nodes_to_name(list_of_paths,node):
     for each_list in list_of_paths:
         new_list=[]
         for each_node in each_list:
-           new_list.append(node[node.loc[:,'deID']==each_node]['Node'].to_string(index=False))
+           new_list.append(node.loc[node['deID']==each_node,'Node'].values[0])
         main_list.append(new_list)
     return main_list
 
@@ -63,8 +63,21 @@ def df_from_paths(paths,node):
     for header in range(num_headers):
         headers.append(header)
     df=pd.DataFrame(df,columns=headers)
-    return df
+    return df  
+  
+def check_magoosh(q,node):
+    return(sum(node['GREQuestion']==q))
     
-    
+def add_magoosh(Qnum,GRE,node):
+    new_node=max(node['deID'])+1
+    path='../QuestionPics/Q'+Qnum+'.png'
+    new_row={'deID':new_node, 'Node':'Magoosh','Path':path,'HasPic':1,'QuestionNumber':Qnum,'GREQuestion':GRE,'Answ1':1,'Answ2':2,'Answ3':3,'Answ4':4,'Answ5':5,'Correct':5,'AnswerExplanation':1}
+    node=node.append(new_row,ignore_index=True)
+    x=check_magoosh(GRE,node)
+    if x>0:
+        return(node)
+    else:
+        return('dup')
+
 
         
