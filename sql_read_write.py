@@ -25,9 +25,9 @@ my_con_local=local_engine.connect()
 
 node = pd.read_sql('SELECT * FROM node', con=my_con_local)
 edge = pd.read_sql('SELECT * FROM edge', con=my_con_local)
-#quiz = pd.read_sql('SELECT * FROM quiz', con=my_con_local)
-#join_table = pd.read_sql('SELECT * FROM join_table', con=my_con_local)
-#users = pd.read_sql('SELECT * FROM users', con=my_con_local)
+quiz = pd.read_sql('SELECT * FROM quiz', con=my_con_local)
+join_table = pd.read_sql('SELECT * FROM join_table', con=my_con_local)
+users = pd.read_sql('SELECT * FROM users', con=my_con_local)
 
 
 #Write

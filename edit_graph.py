@@ -22,6 +22,15 @@ def convert_nodes_to_name(list_of_paths,node):
 def individual_node_to_name(deID,node):
     return node[node['deID']==deID]['Node']
 
+#Convert pandas of nodes to names
+def convert_df_to_names(df,node,QuestionNodes):
+    for x in range(len(df.columns)):
+        for y in range(len(df)):
+            if df.iloc[y,x] in QuestionNodes:
+                pass
+            else:
+                df.iloc[y,x]=list(individual_node_to_name(df.iloc[y,x],node))[0]
+    return df
 
 #Adds a new row to node or edge frame by changeging to list of lists appending a list
 # and then changeing back :)

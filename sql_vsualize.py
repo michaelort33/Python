@@ -12,7 +12,7 @@ from graphviz import Digraph
 import edit_graph as eg
 import json
 from collections import Counter
-
+import sql_read_write
 
 ###
 #Create graph with networkx. This is one of tow graphs. The first with network
@@ -21,29 +21,17 @@ from collections import Counter
 
 G = nx.DiGraph()
 
-graph_edges=edge[['Start Vertex','End Vertex']]
+graph_edges=edge.loc[:,['Start Vertex','End Vertex']]
 tuple_edges=[tuple(x) for x in graph_edges.values]
                
-graph_nodes=node[['deID']]
+graph_nodes=node.loc[:,['deID']]
 tuple_nodes=list(graph_nodes.values)
 #Flatten the list of lists above
 tuple_nodes=[item for sublist in tuple_nodes for item in sublist]
 
+#Add edges and nodes to networkx graph
 G.add_nodes_from(tuple_nodes)
 G.add_edges_from(tuple_edges)
-
-# Generate json for d3.js
-def mapping(x):
-    return str(x)
-
-string_G=nx.relabel_nodes(G,mapping)
-
-#nx to generate dictionary
-d3_graph=nx.node_link_data(string_G)
-
-#serialize dictionary with json and save it to file
-with open('d3_graph_json.txt', 'w') as f:
-    json.dump(d3_graph,f, ensure_ascii=False)
     
 ##generate svg or pdf with g.
 
@@ -51,14 +39,18 @@ g=Digraph(filename='gre_genome.gv',format='svg',graph_attr={"rankdir":"LR"})
 
 #Define all nodes that are questions
 
-QuestionNodes = list(node['deID'][node['QuestionNumber'].isin([x for x in node['QuestionNumber'] if x is not None])])
+QuestionNodes = list(node.loc[:,'deID'][node['QuestionNumber'].isin([x for x in node['QuestionNumber'] if x is not None])])
 
 #Change all nodes to names but for the questions (The question names cause an error in g.render)
 
-graph_edges['Start Vertex']=eg.convert_nodes_to_name([list(graph_edges['Start Vertex'])],node)[0]
-graph_edges['End Vertex'][~graph_edges['End Vertex'].isin(QuestionNodes)]=eg.convert_nodes_to_name([list(graph_edges['End Vertex'][~graph_edges['End Vertex'].isin(QuestionNodes)])],node)[0]
+#Everythin below until add edges is just changeing from nodes to Node names except for questions where i keep the 
+#deID
 
-graph_nodes['deID'][~graph_nodes['deID'].isin(QuestionNodes)]=eg.convert_nodes_to_name([list(graph_nodes['deID'][~graph_nodes['deID'].isin(QuestionNodes)])],node)[0]
+graph_edges=graph_edges.reset_index(drop=True)
+
+graph_edges=eg.convert_df_to_names(graph_edges,node,QuestionNodes)
+
+graph_nodes=eg.convert_df_to_names(graph_nodes,node,QuestionNodes)
 
 #Add edges to the graph from graphviz
 list_edges=[list(x) for x in graph_edges.values]
@@ -67,6 +59,7 @@ for x in list_edges:
     g.edge(str(x[0]),str(x[1]))
     
 list_nodes=[list(x) for x in graph_nodes.values]
+    
 #set the link by first testing if the node is a question or not. if question link to question if 
 #node link to quiz on that category
 for x in list_nodes:
