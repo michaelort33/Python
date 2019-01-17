@@ -8,7 +8,7 @@ from __future__ import division
 from sqlalchemy import create_engine
 import pandas as pd
 import networkx as nx
-from graphviz import Digraph
+from graphviz import Graph
 import edit_graph as eg
 import json
 from collections import Counter
@@ -35,7 +35,7 @@ G.add_edges_from(tuple_edges)
     
 ##generate svg or pdf with g.
 
-g=Digraph(filename='gre_genome.gv',format='svg',graph_attr={"rankdir":"LR"})
+g=Graph(filename='gre_genome.gv',format='svg',graph_attr={"rankdir":"LR"})
 
 #Define all nodes that are questions
 

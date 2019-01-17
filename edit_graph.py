@@ -24,6 +24,8 @@ def individual_node_to_name(deID,node):
 
 #Convert pandas of nodes to names
 def convert_df_to_names(df,node,QuestionNodes):
+    df=df.reset_index(drop=True)
+    node=node.reset_index(drop=True)
     for x in range(len(df.columns)):
         for y in range(len(df)):
             if df.iloc[y,x] in QuestionNodes:
@@ -78,7 +80,7 @@ def check_magoosh(q,node):
     return(sum(node['GREQuestion']==q))
     
 def add_magoosh(Qnum,GRE,node):
-    new_node=max(node['deID'])+1
+    new_node=max(pd.to_numeric(node['deID']))+1
     path='../QuestionPics/Q'+Qnum+'.png'
     new_row={'deID':new_node, 'Node':'Magoosh','Path':path,'HasPic':1,'QuestionNumber':Qnum,'GREQuestion':GRE,'Answ1':1,'Answ2':2,'Answ3':3,'Answ4':4,'Answ5':5,'Correct':5,'AnswerExplanation':1}
     node=node.append(new_row,ignore_index=True)
@@ -88,5 +90,19 @@ def add_magoosh(Qnum,GRE,node):
     else:
         return('dup')
 
-
-        
+def add_ets(Qnum,GRE,node):
+    new_node=max(pd.to_numeric(node['deID']))+1
+    path='../QuestionPics/Q'+Qnum+'.png'
+    name='ETS Question '+GRE
+    new_row={'deID':new_node, 'Node':name,'Path':path,'HasPic':1,'QuestionNumber':Qnum,'GREQuestion':GRE,'Answ1':1,'Answ2':2,'Answ3':3,'Answ4':4,'Answ5':5,'Correct':5,'AnswerExplanation':1}
+    node=node.append(new_row,ignore_index=True)
+    return(node)
+    
+def add_cat_node(cat,node):
+    new_node=max(pd.to_numeric(node['deID']))+1
+    path=''
+    name=cat
+    new_row={'deID':new_node, 'Node':name,'Path':path,'HasPic':0,'QuestionNumber':None,'GREQuestion':'','Answ1':'','Answ2':'','Answ3':'','Answ4':'','Answ5':'','Correct':'','AnswerExplanation':''}
+    node=node.append(new_row,ignore_index=True)
+    return(node)
+    

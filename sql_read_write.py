@@ -15,8 +15,8 @@ from collections import Counter
 #Read from data base
 
 #remote
-remote_engine = create_engine("mysql://gregen5_root:Mooose33@gregenome.com/gregen5_gre_questions")
-my_con_remote=remote_engine.connect()
+#remote_engine = create_engine("mysql://gregen5_root:Mooose33@gregenome.com/gregen5_gre_questions")
+#my_con_remote=remote_engine.connect()
 
 #local
 local_engine = create_engine("mysql://root:@127.0.0.1/gre_genome")
