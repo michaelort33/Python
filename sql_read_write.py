@@ -31,11 +31,11 @@ users = pd.read_sql('SELECT * FROM users', con=my_con_local)
 
 
 #Write
-#node.to_sql(con=local_engine, if_exists='replace', index=False, name='node')
-#edge.to_sql(con=local_engine, if_exists='replace', index=False, name='edge')
+node.to_sql(con=local_engine, if_exists='replace', index=False, name='node')
+edge.to_sql(con=local_engine, if_exists='replace', index=False, name='edge')
 #join_table.to_sql(con=local_engine, if_exists='replace', index=False, name='join_table')
 #quiz.to_sql(con=local_engine, if_exists='replace', index=False, name='quiz')
-#users.to_sql(con=remote_engine, if_exists='replace', index=False, name='users')
+#users.to_sql(con=local_engine, if_exists='replace', index=False, name='users')
 
 #pickle
 #node.to_pickle("./node.pkl")

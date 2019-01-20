@@ -21,7 +21,7 @@ import sql_read_write
 
 G = nx.DiGraph()
 
-graph_edges=edge.loc[:,['Start Vertex','End Vertex']]
+graph_edges=edge.loc[:,['StartVertex','EndVertex']]
 tuple_edges=[tuple(x) for x in graph_edges.values]
                
 graph_nodes=node.loc[:,['deID']]
@@ -64,9 +64,9 @@ list_nodes=[list(x) for x in graph_nodes.values]
 #node link to quiz on that category
 for x in list_nodes:
     if x[0] in QuestionNodes:
-        URL=str('../PHP/questions_cat.php?question=('+'&quot;'+str(x[0])+'&quot;'+')')
+        URL=str('../PHP/questions_cat.php?question='+str(x[0]))
     else:
-        URL=str('../PHP/questions_cat.php?nodes=('+'&quot;'+str(x[0])+'&quot;'+')')
+        URL=str('../PHP/questions_cat.php?nodes='+str(x[0]))
     g.node(name=str(x[0]),URL=URL,_attributes={"fontcolor":"red","target":"_blank","fillcolor":"lightgrey","style":"radial"})
 
 #render the graphviz graph
@@ -78,8 +78,8 @@ g.render('../Website/QuestionPics/gre_genome')
 
 leaf_nodes = [node for node in G if len(list(G.neighbors(node)))==0]
 
-root_nodes = list(set(edge['Start Vertex']
-                [~edge.loc[:,'Start Vertex'].isin(edge.loc[:,'End Vertex'])]))
+root_nodes = list(set(edge['StartVertex']
+                [~edge.loc[:,'StartVertex'].isin(edge.loc[:,'EndVertex'])]))
 
 #Remove isolates from the gre_genome sheet
 #root_nodes = [node for node in root_nodes if node not in nx.isolates(G)]
