@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c42e9758-c8e4-4fd1-95d9-26fc3e84865e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/sql_read_write.py" beforeDir="false" afterPath="$PROJECT_DIR$/sql_read_write.py" afterDir="false" />
-    </list>
+    <list default="true" id="c42e9758-c8e4-4fd1-95d9-26fc3e84865e" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,7 +16,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/edit_graph.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2014">
+            <state relative-caret-position="1590">
               <caret line="107" column="4" selection-start-line="107" selection-start-column="4" selection-end-line="107" selection-end-column="4" />
               <folding>
                 <element signature="e#109#128#0" expanded="true" />
@@ -30,8 +28,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/sql_vsualize.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="10" column="26" lean-forward="true" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
+            <state relative-caret-position="150">
+              <caret line="10" column="26" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -39,7 +37,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sql_read_write.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="475">
+            <state relative-caret-position="375">
               <caret line="31" selection-start-line="31" selection-end-line="31" />
             </state>
           </provider>
@@ -95,7 +93,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -160,8 +158,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="59" y="25" width="1861" height="1055" extended-state="6" />
-    <editor active="true" />
+    <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49919486" weight="0.24972796" />
       <window_info id="Structure" order="1" sideWeight="0.50080514" side_tool="true" weight="0.24972796" />
@@ -177,6 +174,8 @@
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.32937366" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info active="true" anchor="bottom" id="Python Console" order="10" visible="true" weight="0.3574514" />
+      <window_info anchor="right" id="R Packages" />
+      <window_info anchor="right" id="R Graphics" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -191,7 +190,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/edit_graph.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2014">
+        <state relative-caret-position="1590">
           <caret line="107" column="4" selection-start-line="107" selection-start-column="4" selection-end-line="107" selection-end-column="4" />
           <folding>
             <element signature="e#109#128#0" expanded="true" />
@@ -201,15 +200,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sql_read_write.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="475">
+        <state relative-caret-position="375">
           <caret line="31" selection-start-line="31" selection-end-line="31" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sql_vsualize.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="10" column="26" lean-forward="true" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
+        <state relative-caret-position="150">
+          <caret line="10" column="26" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
         </state>
       </provider>
     </entry>
