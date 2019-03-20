@@ -53,32 +53,32 @@ def get_isolates(G,node):
     return df
 
 
-#Returns a dataframe of all inputted paths where each row is the path of nodes 
+#Returns a dataframe of all inputted paths where each row is the path of nodes
 #as 'Node' names so i.e. 1-2-3 becomes Algebra-gemoetry-Magoosh Q
 
 def df_from_paths(paths,node):
-    
+
     df=convert_nodes_to_name(paths,node)
     #First find the max lengths of sublists so i can no how many categories i need:
-    
+
     lengths=[]
     for var in df:
         lengths.append(len(var))
-        
+
     num_headers=max(lengths)
-        
+
     #Conver list of lists where inner list is path of names to a dataframe like
-    #Like the original excel sheet. 
-    
+    #Like the original excel sheet.
+
     headers=[]
     for header in range(num_headers):
         headers.append(header)
     df=pd.DataFrame(df,columns=headers)
-    return df  
-  
+    return df
+
 def check_magoosh(q,node):
     return(sum(node['GREQuestion']==q))
-    
+
 def add_magoosh(Qnum,GRE,node):
     new_node=max(pd.to_numeric(node['deID']))+1
     path='../QuestionPics/Q'+Qnum+'.png'
@@ -97,7 +97,7 @@ def add_ets(Qnum,GRE,node):
     new_row={'deID':new_node, 'Node':name,'Path':path,'HasPic':1,'QuestionNumber':Qnum,'GREQuestion':GRE,'Answ1':1,'Answ2':2,'Answ3':3,'Answ4':4,'Answ5':5,'Correct':5,'AnswerExplanation':1}
     node=node.append(new_row,ignore_index=True)
     return(node)
-    
+
 def add_cat_node(cat,node):
     new_node=max(pd.to_numeric(node['deID']))+1
     path=''
@@ -105,4 +105,5 @@ def add_cat_node(cat,node):
     new_row={'deID':new_node, 'Node':name,'Path':path,'HasPic':0,'QuestionNumber':None,'GREQuestion':'','Answ1':'','Answ2':'','Answ3':'','Answ4':'','Answ5':'','Correct':'','AnswerExplanation':''}
     node=node.append(new_row,ignore_index=True)
     return(node)
-    
+
+

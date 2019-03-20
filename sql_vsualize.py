@@ -5,15 +5,10 @@ Spyder Editor
 This is a temporary script file.
 """
 from __future__ import division
-from sqlalchemy import create_engine
-import pandas as pd
 import networkx as nx
 from graphviz import Graph
 import edit_graph as eg
-import json
-from collections import Counter
-import sql_read_write
-
+import os
 ###
 #Create graph with networkx. This is one of tow graphs. The first with network
 #x and that is called G (caps) The second is just for drawing and that is called 
@@ -70,7 +65,7 @@ for x in list_nodes:
     g.node(name=str(x[0]),URL=URL,_attributes={"fontcolor":"red","target":"_blank","fillcolor":"lightgrey","style":"radial"})
 
 #render the graphviz graph
-g.render('../Website/QuestionPics/gre_genome')
+g.render('test')
 
 ###
 

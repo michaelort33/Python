@@ -5,22 +5,19 @@ This is a temporary script file.
 """
 #%%
 from sqlalchemy import create_engine
+import pymysql
+
+
+
 import pandas as pd
-import numpy as np
-import edit_graph as eg
-import networkx as nx
-from collections import Counter
-import os
 
 #%%Read from data base
-os.chdir('/home/michael/GREGenome/Python')
 
-#remote
-#remote_engine = create_engine("mysql+pymysql://gregen5_root:Mooose33@beta.depthfirsttraining.com/gregen5_gre_questions")
-#my_con_remote=remote_engine.connect()
+remote_engine = create_engine("mysql+pymysql://gregen5_root:Mooose33@beta.depthfirsttraining.com/gregen5_gre_questions")
+my_con_remote=remote_engine.connect()
 
 #local
-local_engine = create_engine("mysql+pymysql://root:@127.0.0.1/gre_genome")
+local_engine = create_engine("mysql+pymysql://michael:Mooose1010@localhost/gre_genome")
 my_con_local=local_engine.connect()
 
 
