@@ -6,9 +6,7 @@ This is a temporary script file.
 #%%
 from sqlalchemy import create_engine
 import pymysql
-
-
-
+import numpy
 import pandas as pd
 
 #%%Read from data base

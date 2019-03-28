@@ -8,6 +8,12 @@ from __future__ import division
 import networkx as nx
 from graphviz import Graph
 import edit_graph as eg
+from sql_read_write import *
+
+import sys
+from xml.dom import minidom
+import simplejson
+
 import os
 ###
 #Create graph with networkx. This is one of tow graphs. The first with network
@@ -30,7 +36,7 @@ G.add_edges_from(tuple_edges)
     
 ##generate svg or pdf with g.
 
-g=Graph(filename='gre_genome.gv',format='svg',graph_attr={"rankdir":"LR"})
+g=Graph(filename='gre_genome.gv',format='json',graph_attr={"rankdir":"LR"})
 
 #Define all nodes that are questions
 
