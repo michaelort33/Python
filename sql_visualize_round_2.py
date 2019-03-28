@@ -1,4 +1,4 @@
-from sql_read_write import node, edge
+from sql_read_write import edge
 
 import networkx as nx
 from networkx.readwrite import json_graph
@@ -28,7 +28,7 @@ fig = plt.figure(figsize=(21, 21), dpi=100)
 
 plt.savefig('cool.png',facecolor=fig.get_facecolor())
 
-fig = plt.figure(figsize=(21, 21), dpi=100)
+fig = plt.figure(figsize=(3, 2), dpi=200)
 
 # simple graph
 
@@ -48,4 +48,4 @@ nx.draw_shell(G_logo, node_size=300, node_color="black", font_size=0, font_color
 
 fig.set_facecolor("#3D9BE9")
 
-plt.savefig('cool.png',transparent=True)
+plt.savefig('logo_small.png',transparent=True)
